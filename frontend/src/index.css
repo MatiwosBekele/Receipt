@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Pixel Tandysoft';
+  src: url('./assets/fonts/VCR_OSD_MONO_1.001.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('./assets/fonts/Myriad Pro Bold SemiExtended.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Biondi W00';
+  src: url('./assets/fonts/Biondi W00 SemiBold.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media print {
+  @font-face {
+    font-family: 'Pixel Tandysoft';
+    src: url('./assets/fonts/VCR_OSD_MONO_1.001.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  body {
+    font-family: 'Pixel Tandysoft', sans-serif; /* Apply font globally */
+    width: 105mm;
+    margin: 0; /* Remove default margins */
+    padding: 0;
+    font-size: large;
+  }
+
+  .receipt-footer {
+    font-size: 23px !important;
+  }
+  .receipt-img-font {
+    font-size: 16px !important;
+  }
+  .receipt-total {
+    font-size: 23px !important;
+  }
+  .receipt-font {
+    font-size: 18px !important;
+    font-weight: 100 !important;
+  }
+}
+
+.font-pixel {
+  font-family: 'Pixel Tandysoft', sans-serif;
+}
+.font-myriad {
+  font-family: 'Myriad Pro', sans-serif;
+}
+.font-biondi {
+  font-family: 'Biondi W00', sans-serif;
+}
