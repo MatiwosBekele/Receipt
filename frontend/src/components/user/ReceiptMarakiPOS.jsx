@@ -43,8 +43,12 @@ const ReceiptMarakiPOS = ({
             {user?.lastName.toUpperCase()}
           </p>
           <p>Addis Ababa</p>
-          <p>S/C N/S: LAFT0 U 06 HNO 306/5</p>
-          <p>Kera Down Town</p>
+          <p>
+            S/C {user?.shopAddress.subCity.toUpperCase()}{' '}
+            {user?.shopAddress.woreda.toUpperCase()} HNO-
+            {user?.shopAddress.houseNumber}
+          </p>
+          <p>{user?.shopAddress.streetName.toUpperCase()}</p>
           <p>{code}</p>
         </div>
       )}
