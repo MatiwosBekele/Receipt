@@ -11,14 +11,20 @@ export const DashboardTop = [
   },
   {
     key: 'Checkout',
-    label: 'Your Challenges',
+    label: 'Checkout',
     path: '/shop/checkout',
     icon: FaChalkboardTeacher,
   },
   {
     key: 'User Profile',
-    label: 'Review Challenges',
+    label: 'User Profile',
     path: '/shop/profile',
+    icon: MdOutlineRateReview,
+  },
+  {
+    key: 'Receipt Template',
+    label: 'Receipt Template',
+    path: '/shop/receiptInfo',
     icon: MdOutlineRateReview,
   },
 ];

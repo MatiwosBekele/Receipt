@@ -11,6 +11,7 @@ import { formatDateAndTime } from '../../utils';
 import ReceiptPEDS from '../../components/user/ReceiptPeds';
 import ReceiptMarakiPOS from '../../components/user/ReceiptMarakiPOS';
 import Attachment from '../../components/user/Attachment';
+import { getReceipts } from '../../state/receiptSlice';
 
 const VAT_RATE = 0.15;
 
@@ -33,13 +34,22 @@ const CheckOut = () => {
   const [rfNo, setRfNo] = useState('');
   const [fsNo, setFsNo] = useState('');
   const [invoiceNo, setInvoiceNo] = useState('');
-
+  const {
+    receipts,
+    getReceiptStatus,
+    addReceiptStatus,
+    deleteReceiptStatus,
+    updateReceiptStatus,
+  } = useSelector((state) => state.receipt);
+  const [selectedReceipt, setSelectedReceipt] = useState(null);
+  const [receiptDetails, setReceiptDetails] = useState({});
   // Ref for printing
   const receiptRef = useRef();
   const attachmentRef = useRef(); // New ref for Attachment
 
   useEffect(() => {
     dispatch(getProducts()); // Fetch products from backend
+    dispatch(getReceipts());
   }, [dispatch]);
 
   const handleQuantityChange = (productId, quantity) => {
@@ -86,6 +96,11 @@ const CheckOut = () => {
     setReceiptNumber(number);
   };
   const [search, setSearch] = useState('');
+  // Handle receipt selection
+  const handleReceiptSelect = (receipt) => {
+    setSelectedReceipt(receipt);
+    setReceiptDetails(receipt);
+  };
   return (
     <div className='flex flex-col font-poppins'>
       <div className='flex justify-between '>
@@ -162,70 +177,24 @@ const CheckOut = () => {
           </div>
 
           <div className='mt-4 border-yellow-400 rounded-md border-2 flex-col flex gap-2 text-sm p-2'>
-            <input
-              type='text'
-              placeholder='Prepared by'
-              value={preparedBy}
-              onChange={(e) => setPreparedBy(e.target.value)}
-              className='border p-2 w-full mb-2'
-            />
-            <input
-              type='text'
-              placeholder='To'
-              value={to}
-              onChange={(e) => setTo(e.target.value)}
-              className='border p-2 w-full mb-2'
-            />
-            <input
-              type='text'
-              placeholder="Buyer's TIN"
-              value={buyersTIN}
-              onChange={(e) => setBuyersTIN(e.target.value)}
-              className='border p-2 w-full'
-            />
-
-            <input
-              type='text'
-              placeholder='Code'
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
-              className='border p-2 w-full'
-            />
-            <input
-              type='text'
-              placeholder='Reference'
-              value={rfNo}
-              onChange={(e) => setRfNo(e.target.value)}
-              className='border p-2 w-full'
-            />
-            <input
-              type='text'
-              placeholder='FS No.'
-              value={fsNo}
-              onChange={(e) => setFsNo(e.target.value)}
-              className='border p-2 w-full'
-            />
-            <input
-              type='text'
-              placeholder='Invoice Number'
-              value={invoiceNo}
-              onChange={(e) => setInvoiceNo(e.target.value)}
-              className='border p-2 w-full'
-            />
-            <input
-              type='date'
-              placeholder='Date'
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className='border p-2 w-full'
-            />
-            <input
-              type='time'
-              placeholder='Time'
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              className='border p-2 w-full'
-            />
+            <h2 className='font-bold mb-1'>Select Receipt</h2>
+            <div className='max-h-40 overflow-scroll space-y-1 border-2 border-yellow-400 rounded-md p-2'>
+              {receipts.map((receipt) => (
+                <div
+                  key={receipt._id}
+                  className={`flex justify-between items-center p-2 cursor-pointer hover:bg-yellow-100 ${
+                    selectedReceipt?._id === receipt._id ? 'bg-yellow-200' : ''
+                  }`}
+                  onClick={() => handleReceiptSelect(receipt)}
+                >
+                  <div>
+                    <strong>Prepared By:</strong> {receipt.preparedBy}
+                    <br />
+                    <strong>To:</strong> {receipt.to}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -251,46 +220,47 @@ const CheckOut = () => {
               MarakiPOS
             </label>
           </div>
-
-          {receiptNumber === 1 && (
-            <ReceiptPEDS
-              selectedProducts={selectedProducts}
-              products={products}
-              total={total}
-              tax={tax}
-              totalWithTax={totalWithTax}
-              totalItems={totalItems}
-              preparedBy={preparedBy}
-              to={to}
-              date={date}
-              time={time}
-              buyersTIN={buyersTIN}
-              receiptRef={receiptRef}
-              code={code}
-              rfNo={rfNo}
-              fsNo={fsNo}
-              invoiceNo={invoiceNo}
-            />
-          )}
-          {receiptNumber === 2 && (
-            <ReceiptMarakiPOS
-              selectedProducts={selectedProducts}
-              products={products}
-              total={total}
-              tax={tax}
-              totalWithTax={totalWithTax}
-              totalItems={totalItems}
-              preparedBy={preparedBy}
-              to={to}
-              date={date}
-              time={time}
-              buyersTIN={buyersTIN}
-              receiptRef={receiptRef}
-              code={code}
-              rfNo={rfNo}
-              fsNo={fsNo}
-              invoiceNo={invoiceNo}
-            />
+          {selectedReceipt && (
+            <>
+              {receiptNumber === 1 && (
+                <ReceiptPEDS
+                  selectedProducts={selectedProducts}
+                  products={products}
+                  total={total}
+                  tax={tax}
+                  totalWithTax={totalWithTax}
+                  totalItems={totalItems}
+                  preparedBy={receiptDetails.preparedBy}
+                  to={receiptDetails.to}
+                  date={receiptDetails.createdAt}
+                  buyersTIN={receiptDetails.buyersTIN}
+                  receiptRef={receiptRef}
+                  code={receiptDetails.code}
+                  rfNo={receiptDetails.reference}
+                  fsNo={receiptDetails.fsno}
+                  invoiceNo={receiptDetails.invoiceNumber}
+                />
+              )}
+              {receiptNumber === 2 && (
+                <ReceiptMarakiPOS
+                  selectedProducts={selectedProducts}
+                  products={products}
+                  total={total}
+                  tax={tax}
+                  totalWithTax={totalWithTax}
+                  totalItems={totalItems}
+                  preparedBy={receiptDetails.preparedBy}
+                  to={receiptDetails.to}
+                  date={receiptDetails.createdAt}
+                  buyersTIN={receiptDetails.buyersTIN}
+                  receiptRef={receiptRef}
+                  code={receiptDetails.code}
+                  rfNo={receiptDetails.reference}
+                  fsNo={receiptDetails.fsno}
+                  invoiceNo={receiptDetails.invoiceNumber}
+                />
+              )}
+            </>
           )}
 
           {/* Print Receipt Button */}
@@ -320,16 +290,15 @@ const CheckOut = () => {
           tax={tax}
           totalWithTax={totalWithTax}
           totalItems={totalItems}
-          preparedBy={preparedBy}
-          to={to}
-          date={date}
-          time={time}
-          buyersTIN={buyersTIN}
+          preparedBy={receiptDetails.preparedBy}
+          to={receiptDetails.to}
+          date={receiptDetails.createdAt}
+          buyersTIN={receiptDetails.buyersTIN}
           attachmentRef={attachmentRef}
-          code={code}
-          rfNo={rfNo}
-          fsNo={fsNo}
-          invoiceNo={invoiceNo}
+          code={receiptDetails.code}
+          rfNo={receiptDetails.reference}
+          fsNo={receiptDetails.fsno}
+          invoiceNo={receiptDetails.invoiceNumber}
         />
       </div>
     </div>

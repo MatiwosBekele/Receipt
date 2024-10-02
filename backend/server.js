@@ -7,6 +7,7 @@ const userRoutes = require('./src/routes/userRoutes');
 const productRoutes = require('./src/routes/productRoutes');
 const profileRoutes = require('./src/routes/profileRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
+const receiptRoutes = require('./src/routes/receiptRoutes');
 const { authMiddleware } = require('./src/middlewares/authMiddleware');
 
 dotenv.config();
@@ -28,6 +29,7 @@ app.use('/api/products', authMiddleware, productRoutes);
 app.use('/api/profile', authMiddleware, profileRoutes);
 // app.use('/api/products', productRoutes);
 app.use('/api/payment', authMiddleware, paymentRoutes);
+app.use('/api/receipts', authMiddleware, receiptRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

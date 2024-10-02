@@ -7,6 +7,7 @@ import DashBoard from '../pages/user/DashBoard';
 import ProtectedRoute from './ProtectedRoute';
 import CheckOut from '../pages/user/CheckOut';
 import UserProfile from '../pages/user/UserProfile';
+import ReceiptTemplate from '../pages/user/ReciptInfo';
 
 export default function AppRouter() {
   return (
@@ -24,6 +25,7 @@ export default function AppRouter() {
         <Route path='dashboard' element={<DashBoard />} />
         <Route path='checkout' element={<CheckOut />} />
         <Route path='profile' element={<UserProfile />} />
+        <Route path='receiptInfo' element={<ReceiptTemplate />} />
       </Route>
 
       <Route path='*' element={<NotFound404 />} />
