@@ -68,7 +68,7 @@ const Login = () => {
             className='w-full px-4 py-2 bg-yellow-500 text-white font-bold rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500'
             disabled={loading}
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? 'Logging in....' : 'Login'}
           </button>
           {data?.message && (
             <p className='text-red-500 text-sm mt-2 text-center'>

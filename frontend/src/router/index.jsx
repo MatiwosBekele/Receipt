@@ -7,7 +7,7 @@ import DashBoard from '../pages/user/DashBoard';
 import ProtectedRoute from './ProtectedRoute';
 import CheckOut from '../pages/user/CheckOut';
 import UserProfile from '../pages/user/UserProfile';
-import ReceiptTemplate from '../pages/user/ReceiptInfo';
+import ReceiptTemplate from '../pages/user/ReciptInfo';
 
 export default function AppRouter() {
   return (

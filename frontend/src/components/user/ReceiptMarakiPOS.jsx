@@ -25,7 +25,6 @@ const ReceiptMarakiPOS = ({
 }) => {
   const dispatch = useDispatch();
   const formattedDate = convertDateFormat(date);
-
   useEffect(() => {
     dispatch(getUser());
   }, []);
@@ -58,7 +57,7 @@ const ReceiptMarakiPOS = ({
       <div className='flex flex-col justify-between text-base receipt-font mb-2'>
         <p>FS No. {fsNo}</p>
         <div className='flex justify-between'>
-          <p>{formattedDate}</p>
+          <p>{date}</p>
           <p>{time}</p>
         </div>
       </div>

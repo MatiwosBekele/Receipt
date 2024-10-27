@@ -77,6 +77,7 @@ const ReceiptPEDS = ({
             {user?.firstName.toUpperCase()} {user?.middleName.toUpperCase()}{' '}
             {user?.lastName.toUpperCase()}
           </p>
+          <p>{user?.shopName.toUpperCase()}</p>
           <p>
             A.A S/C-{user?.shopAddress.subCity.toUpperCase()}{' '}
             {user?.shopAddress.woreda.toUpperCase()}
@@ -91,7 +92,7 @@ const ReceiptPEDS = ({
       <div className='flex justify-between mb-4'>
         <div className='leading-tight'>
           <p>FS NO. {fsNo}</p>
-          <p>{convertDateFormat(date)}</p>
+          <p>{date}</p>
         </div>
         <div className='text-right leading-tight'>
           <p>

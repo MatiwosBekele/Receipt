@@ -298,7 +298,7 @@ const UserProfile = () => {
           className='mt-4 bg-yellow-400 text-xl text-black font-medium hover:bg-yellow-300 w-full rounded-md px-4 py-2'
           disabled={loading}
         >
-          {loading ? 'Submitting...' : 'Submit'}
+          {loading ? 'Submitting....' : 'Submit'}
         </button>
       </form>
     </div>

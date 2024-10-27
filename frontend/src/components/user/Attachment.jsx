@@ -75,6 +75,11 @@ const Attachment = ({
       </div>
       {getUserStatus === 'succeeded' && (
         <div className='text-start mb-8'>
+          <h2 className='text-xl font-bold'>
+            {' '}
+            {user?.firstName.toUpperCase()} {user?.middleName.toUpperCase()}{' '}
+            {user?.lastName.toUpperCase()}
+          </h2>
           <h2 className='text-xl font-bold'>{user?.shopName.toUpperCase()}</h2>
           <p className='text-sm'>
             A.A/S/C {user?.shopAddress.subCity.toUpperCase()}{' '}

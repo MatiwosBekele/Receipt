@@ -101,6 +101,7 @@ const CheckOut = () => {
     setSelectedReceipt(receipt);
     setReceiptDetails(receipt);
   };
+  console.log(receiptDetails.createdAt);
   return (
     <div className='flex flex-col font-poppins'>
       <div className='flex justify-between '>
@@ -196,6 +197,21 @@ const CheckOut = () => {
               ))}
             </div>
           </div>
+          <div className='mt-4 border-yellow-400 rounded-md border-2 flex-col flex gap-2 text-sm p-2'>
+            <input
+              type='date'
+              className='h-10 w-full rounded border border-gray-500'
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+            <input
+              type='time'
+              className='h-10 w-full rounded border border-gray-500'
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+            />
+            <input />
+          </div>
         </div>
 
         <div className='w-1/2 p-4 border-l border-gray-300 bg-slate-200'>
@@ -232,7 +248,8 @@ const CheckOut = () => {
                   totalItems={totalItems}
                   preparedBy={receiptDetails.preparedBy}
                   to={receiptDetails.to}
-                  date={receiptDetails.createdAt}
+                  date={date}
+                  time={time}
                   buyersTIN={receiptDetails.buyersTIN}
                   receiptRef={receiptRef}
                   code={receiptDetails.code}
@@ -251,7 +268,8 @@ const CheckOut = () => {
                   totalItems={totalItems}
                   preparedBy={receiptDetails.preparedBy}
                   to={receiptDetails.to}
-                  date={receiptDetails.createdAt}
+                  date={date}
+                  time={time}
                   buyersTIN={receiptDetails.buyersTIN}
                   receiptRef={receiptRef}
                   code={receiptDetails.code}
@@ -292,7 +310,7 @@ const CheckOut = () => {
           totalItems={totalItems}
           preparedBy={receiptDetails.preparedBy}
           to={receiptDetails.to}
-          date={receiptDetails.createdAt}
+          date={date}
           buyersTIN={receiptDetails.buyersTIN}
           attachmentRef={attachmentRef}
           code={receiptDetails.code}
